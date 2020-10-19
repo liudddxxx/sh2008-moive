@@ -15,11 +15,21 @@ axios.interceptors.request.use(function (config) {
     if (info == "info") { 
         host = "mall.film-ticket.film.info"
     }
-    // ...
-    config.headers = {
-        "X-Client-Info": '{"a":"3000","ch":"1002","v":"5.0.4","e":"16022350652879599478308866","bc":"310100"}',
-        "X-Host": host
+    if (info == "city") { 
+        host = "mall.film-ticket.city.list"
     }
+    // ...
+    if (config.headers.authorization) {
+        config.headers = {
+            "authorization": config.headers.authorization
+        }
+    } else { 
+        config.headers = {
+            "X-Client-Info": '{"a":"3000","ch":"1002","v":"5.0.4","e":"16022350652879599478308866","bc":"310100"}',
+            "X-Host": host
+        }
+    }
+
     return config
 }, function (err) { 
     // 错误处理
